@@ -12,9 +12,9 @@ import { APP_NAME } from '@/lib/constants';
 const categories = ['men', 'women', 'kids', 'accessories'];
 export default async function Search() {
   return (
-    <form action='/search' method='GET' className='flex items-stretch h-10 '>
+    <form action='/search' method='GET' className='flex items-stretch h-9'>
       <Select name='category'>
-        <SelectTrigger className='w-auto h-full dark:border-gray-200 bg-gray-100 text-black border-r  rounded-r-none rounded-l-md'>
+        <SelectTrigger className='w-auto h-[40px] dark:border-gray-200 bg-gray-100 text-black border-r  rounded-r-none rounded-l-md'>
           <SelectValue placeholder='All' />
         </SelectTrigger>
         <SelectContent position='popper'>
@@ -27,7 +27,7 @@ export default async function Search() {
         </SelectContent>
       </Select>
       <Input
-        className='flex-1 rounded-none dark:border-gray-200 bg-gray-100 text-black text-base h-[36px] rounded-r-md'
+        className='flex-1 rounded-none dark:border-gray-200 bg-gray-100 text-black text-base h-full'
         placeholder={`Search Site ${APP_NAME}`}
         name='q'
         type='search'
