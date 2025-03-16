@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import useCartSidebar from '@/hooks/use-cart-sidebar';
-import CartSidebar from '@/create components/shared/cart-sidebar';
+import CartSidebar from '@/components/shared/cart-sidebar';
 import { Toaster } from 'sonner';
 
 export default function ClientProviders({
