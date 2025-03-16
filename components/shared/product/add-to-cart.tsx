@@ -47,6 +47,7 @@ export default function AddToCart({
             ),
           }); */
         } catch (error: any) {
+          console.log(error);
           /* toast({
             variant: 'destructive',
             description: error.message,
@@ -82,6 +83,7 @@ export default function AddToCart({
             const itemId = await addItem(item, quantity);
             router.push(`/cart/${itemId}`);
           } catch (error: any) {
+            console.log(error);
             /* toast({
               variant: 'destructive',
               description: error.message,
@@ -98,6 +100,7 @@ export default function AddToCart({
             addItem(item, quantity);
             router.push(`/checkout`);
           } catch (error: any) {
+            console.log(error);
             /* toast({
               variant: 'destructive',
               description: error.message,
