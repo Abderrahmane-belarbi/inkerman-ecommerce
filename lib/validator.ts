@@ -65,6 +65,16 @@ export const OrderItemSchema = z.object({
   color: z.string().optional(),
 });
 
+export const ShippingAddressSchema = z.object({
+  fullName: z.string().min(1, 'Full name is required'),
+  street: z.string().min(1, 'Address is required'),
+  city: z.string().min(1, 'City is required'),
+  postalCode: z.string().min(1, 'Postal code is required'),
+  province: z.string().min(1, 'Province is required'),
+  phone: z.string().min(1, 'Phone number is required'),
+  country: z.string().min(1, 'Country is required'),
+})
+
 export const CartSchema = z.object({
   items: z
     .array(OrderItemSchema)
@@ -76,6 +86,7 @@ export const CartSchema = z.object({
   totalPrice: z.number(),
   paymentMethod: z.optional(z.string()),
   deliveryDateIndex: z.optional(z.number()),
+  shippingAddress: z.optional(ShippingAddressSchema),
   expectedDeliveryDate: z.optional(z.date()),
 });
 
@@ -96,6 +107,7 @@ export const UserInputSchema = z.object({
   role: UserRole,
   password: Password,
   paymentMethod: z.string().min(1, "Payment method is required"),
+  shippingAddress: z.optional(ShippingAddressSchema),
   address: z.object({
     fullName: z.string().min(1, "Full name is required"),
     street: z.string().min(1, "Street is required"),
