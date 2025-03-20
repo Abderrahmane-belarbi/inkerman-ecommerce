@@ -11,13 +11,13 @@ export default function CheckoutLayout({
   return (
     <div className='p-4'>
       <header className='bg-card mb-4 border-b'>
-        <div className='max-w-6xl mx-auto flex justify-between items-center'>
+        <div className='mb-4 max-w-6xl mx-auto flex justify-between items-center'>
           <Link href='/'>
             <Image
               src='/icons/inkerman-logo.png'
               alt='logo'
-              width={70}
-              height={70}
+              width={26}
+              height={26}
               style={{
                 maxWidth: '100%',
                 height: 'auto',
