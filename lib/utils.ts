@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import qs from "query-string";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -27,6 +28,10 @@ const CURRENCY_FORMATTER = new Intl.NumberFormat("en-US", {
 });
 export function formatCurrency(amount: number) {
   return CURRENCY_FORMATTER.format(amount);
+}
+
+export function formatId(id: string) {
+  return `..${id.substring(id.length - 6)}`
 }
 
 const NUMBER_FORMATTER = new Intl.NumberFormat("en-US");
@@ -134,3 +139,25 @@ export const formatDateTime = (dateString: Date) => {
     timeOnly: formattedTime,
   };
 };
+
+export function formUrlQuery({
+  params,
+  key,
+  value,
+}: {
+  params: string;
+  key: string;
+  value: string | null;
+}) {
+  const currentUrl = qs.parse(params);
+
+  currentUrl[key] = value;
+
+  return qs.stringifyUrl(
+    {
+      url: window.location.pathname,
+      query: currentUrl,
+    },
+    { skipNull: true }
+  );
+}
