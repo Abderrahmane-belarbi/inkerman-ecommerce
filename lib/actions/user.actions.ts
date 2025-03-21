@@ -1,6 +1,6 @@
 "use server";
-import { signIn, signOut } from "@/auth";
-import { IUserSignIn, IUserSignUp } from "@/types";
+import { auth, signIn, signOut } from "@/auth";
+import { IUserName, IUserSignIn, IUserSignUp } from "@/types";
 import { redirect } from "next/navigation";
 import { UserSignUpSchema } from "../validator";
 import { connectToDatabase } from "../db";
@@ -14,8 +14,8 @@ export async function signInWithCredentials(user: IUserSignIn) {
 }
 
 export const SignInWithGoogle = async () => {
-  await signIn('google')
-}
+  await signIn("google");
+};
 export const SignOut = async () => {
   const redirectTo = await signOut({ redirect: false });
   redirect(redirectTo.redirect);
@@ -38,5 +38,23 @@ export async function registerUser(userSignUp: IUserSignUp) {
     return { success: true, message: "User created successfully" };
   } catch (error) {
     return { success: false, error: formatError(error) };
+  }
+}
+
+export async function updateUserName(user: IUserName) {
+  try {
+    await connectToDatabase();
+    const session = await auth();
+    const currentUser = await User.findById(session?.user?.id);
+    if (!currentUser) throw new Error("User not found");
+    currentUser.name = user.name;
+    const updatedUser = await currentUser.save();
+    return {
+      success: true,
+      message: "User updated successfully",
+      data: JSON.parse(JSON.stringify(updatedUser)),
+    };
+  } catch (error) {
+    return { success: false, message: formatError(error) };
   }
 }
