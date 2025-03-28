@@ -37,11 +37,9 @@ export default async function ProductDetails(props: {
 }) {
   const session = await auth();
   const searchParams = await props.searchParams;
-
-  const { page, color, size } = searchParams;
-
   const params = await props.params;
 
+  const { page, color, size } = searchParams;
   const { slug } = params;
 
   const product = await getProductBySlug(slug);

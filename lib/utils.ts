@@ -21,10 +21,11 @@ export function toSlug(text: string) {
     .replace(/-+/g, "-");
 }
 
+// Ex: console.log(formatCurrency(1000)); => "$1,000.00" OR console.log(formatCurrency(4)); => "$4.00"
 const CURRENCY_FORMATTER = new Intl.NumberFormat("en-US", {
   currency: "USD",
   style: "currency",
-  minimumFractionDigits: 2,
+  minimumFractionDigits: 2, // Ensures two decimal places.
 });
 export function formatCurrency(amount: number) {
   return CURRENCY_FORMATTER.format(amount);
@@ -34,6 +35,9 @@ export function formatId(id: string) {
   return `..${id.substring(id.length - 6)}`;
 }
 
+// Intl.NumberFormat is a built-in JavaScript object that formats numbers according to locale-specific rules.
+// No extra options → Uses default formatting (adds commas for thousands).
+// Ex: console.log(formatNumber(1234.56)); => "1,234.56" OR   console.log(formatNumber(50)); => "50"
 const NUMBER_FORMATTER = new Intl.NumberFormat("en-US");
 export function formatNumber(number: number) {
   return NUMBER_FORMATTER.format(number);

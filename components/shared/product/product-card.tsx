@@ -55,7 +55,7 @@ const ProductCard = ({
       <p className='font-bold'>{product.brand}</p>
       <Link
         href={`/product/${product.slug}`}
-        className='overflow-hidden text-ellipsis'
+        className='overflow-hidden text-ellipsis line-clamp-2'
         style={{
           display: '-webkit-box',
           WebkitLineClamp: 2,
@@ -66,7 +66,9 @@ const ProductCard = ({
       </Link>
       <div className='flex gap-2 justify-center'>
         <Rating rating={product.avgRating} />
-        <span>({formatNumber(product.numReviews)})</span>
+        <span className='text-sm text-gray-600 dark:text-gray-300'>
+          ({formatNumber(product.numReviews)})
+        </span>
       </div>
 
       <ProductPrice
@@ -118,7 +120,7 @@ const ProductCard = ({
       </CardHeader>
       {!hideDetails && (
         <>
-          <CardContent className='p-3 flex-1  text-center'>
+          <CardContent className='p-3 flex-1 text-center'>
             <ProductDetails />
           </CardContent>
           <CardFooter className='p-3'>

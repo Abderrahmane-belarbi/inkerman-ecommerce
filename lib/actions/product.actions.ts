@@ -26,11 +26,13 @@ export async function getProductsForCard({
 }) {
   await connectToDatabase();
   const products = await Product.find(
-    { tags: { $in: [tag] }, isPublished: true },
+    // tags is an array of strings
+    { tags: { $in: [tag] }, isPublished: true }, // find all products that match element of tags list
+    // the second object is including the fields that should return
     {
-      name: 1,
-      href: { $concat: ["/product/", "$slug"] },
-      image: { $arrayElemAt: ["$images", 0] },
+      name: 1, // means inclue the name field
+      href: { $concat: ["/product/", "$slug"] }, // concatinate the '/products' with slug field ex: slug = "best-laptop" => href = "/product/best-laptop"
+      image: { $arrayElemAt: ["$images", 0] }, // images is an array so to select an element of an array we use $arrayElemAt and pass the field name wich is images and the index of it
     }
   )
     .sort({ createdAt: "desc" })

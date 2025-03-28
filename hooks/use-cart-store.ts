@@ -3,17 +3,25 @@ import { persist } from "zustand/middleware";
 
 import { Cart, OrderItem, ShippingAddress } from "@/types";
 import { calcDeliveryDateAndPrice } from "@/lib/actions/order.actions";
+// 1. Understanding Zustand & Persist
+// What is Zustand?
+// Zustand is a lightweight, unopinionated state management library for React.
+
+// It provides a simple API to create and update global state in React applications.
+
+// What is Persist?
+// persist is a middleware that automatically saves the cart state in local storage.
+// This ensures that the cart remains stored even when the user refreshes the page.
 
 const initialState: Cart = {
-  items: [],
-  itemsPrice: 0,
-  taxPrice: undefined,
-  shippingPrice: undefined,
-  totalPrice: 0,
-  paymentMethod: undefined,
-  shippingAddress: undefined,
-  deliveryDateIndex: undefined,
-  
+  items: [],              // List of cart items
+  itemsPrice: 0,          // Total price of items
+  taxPrice: undefined,    // Tax (if applicable)
+  shippingPrice: undefined, // Shipping cost
+  totalPrice: 0,          // Total cost including tax and shipping
+  paymentMethod: undefined,  // Selected payment method
+  shippingAddress: undefined, // User's shipping address
+  deliveryDateIndex: undefined, // Selected delivery date option
 };
 
 interface CartState {
@@ -28,12 +36,16 @@ interface CartState {
   setPaymentMethod: (paymentMethod: string) => void
   setDeliveryDateIndex: (index: number) => Promise<void>
 }
+// 3. Creating the Zustand Store
+// The create() function initializes the Zustand store.
+// The persist() middleware ensures the cart data is saved in local storage.
+// set is used to update the state.
+// get is used to retrieve the current state.
 
 const useCartStore = create(
   persist<CartState>(
     (set, get) => ({
       cart: initialState,
-
       addItem: async (item: OrderItem, quantity: number) => {
         const { items, shippingAddress } = get().cart;
         const existItem = items.find(

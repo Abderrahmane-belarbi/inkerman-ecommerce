@@ -20,6 +20,10 @@ export const calcDeliveryDateAndPrice = async ({
   shippingAddress?: ShippingAddress;
 }) => {
   const itemsPrice = round2(
+    // items.reduce:
+    // iterates over an array and accumulates a single value.
+    // The initial value (0) sets the starting point for accumulation.
+    // the iteration will be the length of items array
     items.reduce((acc, item) => acc + item.price * item.quantity, 0)
   );
 

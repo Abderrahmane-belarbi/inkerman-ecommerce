@@ -21,21 +21,26 @@ export default function SelectVariant({
           <div>Color:</div>
           {product.colors.map((x: string) => (
             <Button
-              asChild
+              key={x}
+              asChild // Normally, if you wrap a <Button> around a <Link>, it won't inherit the styles correctly. By using asChild, the Button component does not render a <button> tag, but instead delegates its styles and behavior to the child component.
               variant='outline'
               className={
                 selectedColor === x ? 'border-2 border-primary' : 'border-2'
               }
-              key={x}
             >
               <Link
+                key={x}
+                // The replace prop in Next.js <Link> prevents adding a new entry to the browser's history when navigating. Instead of pushing a new URL to the history stack, it replaces the current entry.
+                // By default, when you navigate using <Link>, Next.js adds the new URL to the browser's history.
+                // But if you use the replace prop, Clicking "Back" does not go back to the previous page (because it's replaced).
                 replace
+                // Default behavior (scroll={true}) → The page scrolls to the top when you navigate.
+                // When scroll={false} → The page stays at the current scroll position.
                 scroll={false}
                 href={`?${new URLSearchParams({
                   color: x,
                   size: selectedSize,
                 })}`}
-                key={x}
               >
                 <div
                   style={{ backgroundColor: x }}

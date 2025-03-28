@@ -18,7 +18,7 @@ export const SignInWithGoogle = async () => {
 };
 export const SignOut = async () => {
   const redirectTo = await signOut({ redirect: false });
-  redirect(redirectTo.redirect);
+  redirect(redirectTo.redirect); // Manually redirects the user to the sign-out page after logout.
 };
 
 // Create User

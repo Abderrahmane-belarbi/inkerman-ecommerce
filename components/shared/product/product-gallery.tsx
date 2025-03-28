@@ -28,7 +28,6 @@ export default function ProductGallery({ images }: { images: string[] }) {
           </button>
         ))}
       </div>
-
       <div className='w-full'>
         <Zoom>
           <div className='relative h-[500px]'>
