@@ -34,7 +34,7 @@ const signInDefaultValues =
 
 export default function CredentialsSignInForm() {
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl') || '/';
+  const callbackUrl = searchParams.get('callbackUrl') || '/'; // useSearchParams → Gets the callbackUrl from the URL.
 
   const form = useForm<IUserSignIn>({
     resolver: zodResolver(UserSignInSchema),
@@ -64,6 +64,13 @@ export default function CredentialsSignInForm() {
 
   return (
     <Form {...form}>
+      {/* 
+        In React Hook Form, handleSubmit is a function that acts as a middleware before calling the actual submit handler (onSubmit). Its purpose is to:
+        - Validate Form Data
+          handleSubmit first validates the input fields using the provided validation schema (in this case, zodResolver(UserSignInSchema)).
+          If there are validation errors, they are displayed using <FormMessage />, and the form submission is prevented.
+          onSubmit by itself does not handle validation and would execute even if the form contains errors.
+      */}
       <form onSubmit={handleSubmit(onSubmit)}>
         <input type='hidden' name='callbackUrl' value={callbackUrl} />
         <div className='space-y-6'>

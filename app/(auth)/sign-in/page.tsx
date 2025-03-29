@@ -26,7 +26,7 @@ export default async function SignIn(props: {
 
   const session = await auth();
   if (session) {
-    return redirect(callbackUrl);
+    return redirect(callbackUrl); // redirect → Redirects users to another page if they are already signed in.
   }
 
   return (
@@ -48,6 +48,11 @@ export default async function SignIn(props: {
       <SeparatorWithOr>New to {APP_NAME}?</SeparatorWithOr>
 
       <Link href={`/sign-up?callbackUrl=${encodeURIComponent(callbackUrl)}`}>
+        {/* 
+        Provides a sign-up button linking to /sign-up with callbackUrl as a query parameter.
+        encodeURIComponent(callbackUrl) → Ensures special characters in callbackUrl are properly encoded.
+        is used to create a sign-up link that includes a query parameter (callbackUrl) to remember where the user was trying to go before they had to sign in.
+      */}
         <Button className='w-full' variant='outline'>
           Create your {APP_NAME} account
         </Button>
