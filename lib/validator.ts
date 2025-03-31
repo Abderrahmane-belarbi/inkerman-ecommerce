@@ -182,6 +182,9 @@ export const UserSignInSchema = z.object({
 export const UserSignUpSchema = UserSignInSchema.extend({
   name: UserName,
   confirmPassword: Password,
+  // It checks if password === confirmPassword.
+  // If they don’t match, it: Returns the error message: "Passwords don't match"
+  // Targets the "confirmPassword" field for the error.
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
   path: ["confirmPassword"],

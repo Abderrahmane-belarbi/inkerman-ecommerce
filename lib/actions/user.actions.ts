@@ -24,6 +24,8 @@ export const SignOut = async () => {
 // Create User
 export async function registerUser(userSignUp: IUserSignUp) {
   try {
+    // Uses UserSignUpSchema to validate the input data asynchronously.
+    // If validation fails, an error is thrown, and the function skips further execution.
     const user = await UserSignUpSchema.parseAsync({
       name: userSignUp.name,
       email: userSignUp.email,

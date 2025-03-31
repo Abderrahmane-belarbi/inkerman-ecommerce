@@ -68,6 +68,7 @@ export default function SignUpForm() {
       });
       redirect(callbackUrl);
     } catch (error) {
+      // isRedirectError(error) is a utility function in Next.js that checks whether a given error is related to a redirect. It is used to differentiate between different types of errors, ensuring that actual redirection errors are handled correctly
       if (isRedirectError(error)) {
         throw error;
       }

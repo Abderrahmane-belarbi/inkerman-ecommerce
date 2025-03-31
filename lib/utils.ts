@@ -78,6 +78,10 @@ export function calculateFutureDate(days: number) {
   const currentDate = new Date();
   currentDate.setDate(currentDate.getDate() + days);
   return currentDate;
+  // EX:
+  // const currentDate = new Date();  >> currentDate: 2025-03-31T18:48:47.945Z
+  // currentDate.setDate(currentDate.getDate() + 20);
+  // console.log('newDate:', currentDate.toDateString()); >> newDate: Sun Apr 20 2025
 }
 export function getMonthName(yearAndMonth: string) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
