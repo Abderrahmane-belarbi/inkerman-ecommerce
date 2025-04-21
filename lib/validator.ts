@@ -5,6 +5,12 @@ import { formatNumberWithDecimal } from "./utils";
 const MongoId = z
   .string()
   .regex(/^[0-9a-fA-F]{24}$/, { message: "Invalid MongoDB ID" });
+  /* 
+    ^	Anchors the pattern to the start of the string
+    [0-9a-fA-F]	Allows any hexadecimal character (0-9, a-f, A-F)
+    {24}	Requires exactly 24 characters
+    If you don’t include $, the regex might match part of the string, not the whole string.
+  */
 const Price = (field: string) =>
   z.coerce
     .number()
@@ -20,6 +26,8 @@ export const ReviewInputSchema = z.object({
   title: z.string().min(1, "Title is required"),
   comment: z.string().min(1, "Comment is required"),
   rating: z.coerce
+  // "coerce") values from one type to another, especially when validating user input 
+  // like form data — that often comes as strings.
     .number()
     .int()
     .min(1, "Rating must be at least 1")
@@ -94,7 +102,14 @@ export const ShippingAddressSchema = z.object({
 
 // Order
 export const OrderInputSchema = z.object({
+  // z.union([...]) is a Zod function that allows a field to accept multiple possible types.
+  // The user field can either be:
+  // 1️⃣ A MongoDB ObjectId (MongoId). 
+  // 2️⃣ An object containing:
+    // name → a string
+    // email → a valid email
   user: z.union([
+    // “The user field must be either a valid MongoDB ID (as a string) or an object with a name and an email.”
     MongoId,
     z.object({
       name: z.string(),
@@ -135,7 +150,6 @@ export const CartSchema = z.object({
     .array(OrderItemSchema)
     .min(1, "Order must contain at least one item"),
   itemsPrice: z.number(),
-
   taxPrice: z.optional(z.number()),
   shippingPrice: z.optional(z.number()),
   totalPrice: z.number(),

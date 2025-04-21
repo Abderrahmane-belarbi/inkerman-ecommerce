@@ -87,6 +87,9 @@ export function getMonthName(yearAndMonth: string) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [year, monthNumber] = yearAndMonth.split("-");
   const date = new Date();
+  // parseInt is a JavaScript function used to convert a string into an integer. Ex '0025' > 25
+  // parseInt(monthNumber) - 1 → Converts "03" to 2, because months in JavaScript are zero-based (0 = January, 1 = February, 2 = March).
+  // date.setMonth(2) → Sets the date object to March.
   date.setMonth(parseInt(monthNumber) - 1);
   return new Date().getMonth() === parseInt(monthNumber) - 1
     ? `${date.toLocaleString("default", { month: "long" })} (ongoing)`
@@ -102,21 +105,24 @@ export function timeUntilMidnight(): { hours: number; minutes: number } {
   const midnight = new Date();
   midnight.setHours(24, 0, 0, 0); // Set to 12:00 AM (next day)
 
-  const diff = midnight.getTime() - now.getTime(); // Difference in milliseconds
-  const hours = Math.floor(diff / (1000 * 60 * 60));
+  const diff = midnight.getTime() - now.getTime(); // midnight.getTime() returns the timestamp of midnight (next day) in milliseconds.
+  const hours = Math.floor(diff / (1000 * 60 * 60)); // Convert milliseconds to hours
+  // diff % (1000 * 60 * 60) gets the remaining milliseconds after removing full hours.
+  // Dividing by (1000 * 60) converts the remaining milliseconds into minutes.
   const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
 
   return { hours, minutes };
 }
 
 export const formatDateTime = (dateString: Date) => {
+  // This function formats a given date into a readable string using internationalization (Intl.DateTimeFormat).
   const dateTimeOptions: Intl.DateTimeFormatOptions = {
     month: "short", // abbreviated month name (e.g., 'Oct')
-    year: "numeric", // abbreviated month name (e.g., 'Oct')
-    day: "numeric", // numeric day of the month (e.g., '25')
-    hour: "numeric", // numeric hour (e.g., '8')
-    minute: "numeric", // numeric minute (e.g., '30')
-    hour12: true, // use 12-hour clock (true) or 24-hour clock (false)
+    year: "numeric", // "numeric" → Displays the full year (2024, 2025, etc.).
+    day: "numeric", // "numeric" → Displays the day of the month (1 to 31).
+    hour: "numeric", // "numeric" → Displays the hour (1-12 if hour12: true, 0-23 if false).
+    minute: "numeric", // "numeric" → Displays the minutes (00-59).
+    hour12: true, // hour12: true, // 12-hour format (AM/PM)
   };
   const dateOptions: Intl.DateTimeFormatOptions = {
     // weekday: 'short', // abbreviated weekday name (e.g., 'Mon')

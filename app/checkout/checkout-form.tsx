@@ -113,7 +113,7 @@ const CheckoutForm = () => {
   const [isDeliveryDateSelected, setIsDeliveryDateSelected] =
     useState<boolean>(false);
 
-  const handlePlaceOrder = async () => {
+  async function handlePlaceOrder() {
     const res = await createOrder({
       items,
       shippingAddress,
@@ -142,7 +142,7 @@ const CheckoutForm = () => {
       clearCart();
       router.push(`/checkout/${res.data?.orderId}`);
     }
-  };
+  }
   const handleSelectPaymentMethod = () => {
     setIsAddressSelected(true);
     setIsPaymentMethodSelected(true);
@@ -246,7 +246,7 @@ const CheckoutForm = () => {
           {/* shipping address */}
           <div>
             {isAddressSelected && shippingAddress ? (
-              <div className='grid grid-cols-1 md:grid-cols-12    my-3  pb-3'>
+              <div className='grid grid-cols-1 md:grid-cols-12 my-3 pb-3'>
                 <div className='col-span-5 flex text-lg font-bold '>
                   <span className='w-8'>1 </span>
                   <span>Shipping address</span>
@@ -409,7 +409,7 @@ const CheckoutForm = () => {
                           />
                         </div>
                       </CardContent>
-                      <CardFooter className='  p-4'>
+                      <CardFooter className='p-4'>
                         <Button
                           type='submit'
                           className='rounded-full font-bold'
@@ -449,7 +449,7 @@ const CheckoutForm = () => {
             ) : isAddressSelected ? (
               <>
                 <div className='flex text-primary text-lg font-bold my-2'>
-                  <span className='w-8'>2 </span>
+                  <span className='w-8'>2</span>
                   <span>Choose a payment method</span>
                 </div>
                 <Card className='md:ml-8 my-4'>
@@ -590,7 +590,10 @@ const CheckoutForm = () => {
                                     Qty: {item.quantity}
                                   </SelectValue>
                                 </SelectTrigger>
-                                <SelectContent position='popper'>
+                                <SelectContent
+                                  className='max-h-[240px]'
+                                  position='popper'
+                                >
                                   {Array.from({
                                     length: item.countInStock,
                                   }).map((_, i) => (

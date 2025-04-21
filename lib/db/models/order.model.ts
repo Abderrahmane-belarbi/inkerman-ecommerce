@@ -56,6 +56,9 @@ const orderSchema = new Schema<IOrder>(
     createdAt: { type: Date, default: Date.now },
   },
   {
+    // Even though you’re already using timestamps: true, you're also manually setting createdAt.
+    // Mongoose will still handle it for you because of the timestamps option
+    // which adds both createdAt and updatedAt.
     timestamps: true,
   }
 );

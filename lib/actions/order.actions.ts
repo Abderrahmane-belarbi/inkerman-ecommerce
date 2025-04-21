@@ -79,10 +79,10 @@ export const createOrder = async (clientSideCart: Cart) => {
     return { success: false, message: formatError(error) };
   }
 };
-export const createOrderFromCart = async (
+export async function createOrderFromCart(
   clientSideCart: Cart,
   userId: string
-) => {
+) {
   const cart = {
     ...clientSideCart,
     ...calcDeliveryDateAndPrice({
